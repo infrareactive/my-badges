@@ -2,23 +2,24 @@ import { Commit, define, latest } from '#src'
 
 export default define({
   url: import.meta.url,
-  badges: ['may-the-4th'] as const,
+  badges: ['st-patricks-day'] as const,
   present(data, grant) {
     const commits: Commit[] = []
 
     for (const repo of data.repos) {
       for (const commit of repo.commits) {
         const data = new Date(commit.committedDate)
-        if (data.getMonth() === 4 && data.getDate() === 4) {
+        if (data.getMonth() === 2 && data.getDate() === 17) {
           commits.push(commit)
         }
       }
     }
 
     if (commits.length > 0) {
-      grant('may-the-4th', 'May the 4th be with you!').evidenceCommits(
-        ...commits.sort(latest).slice(0, 6),
-      )
+      grant(
+        'st-patricks-day',
+        "I committed on St. Patrick's Day!",
+      ).evidenceCommits(...commits.sort(latest).slice(0, 6))
     }
   },
 })
